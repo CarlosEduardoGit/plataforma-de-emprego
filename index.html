@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobConnect - Encontre seu emprego ideal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #0da271;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .search-box {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: var(--shadow);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .form-control {
+            padding: 0.8rem;
+            border: 1px solid #d1d5db;
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+
+        /* Categories */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .category-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .category-card p {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Featured Jobs */
+        .jobs {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .job-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .job-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-company {
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .job-type {
+            background: #dbeafe;
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .job-details {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .job-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        .job-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .job-salary {
+            font-weight: 600;
+            color: var(--success);
+        }
+
+        /* How it works */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .step h3 {
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--secondary);
+        }
+
+        .modal-body {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+            min-height: 80vh;
+            padding: 2rem 0;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-title {
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        .dashboard-sidebar {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            height: fit-content;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: var(--dark);
+            border-radius: var(--radius);
+            transition: all 0.3s;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background: #dbeafe;
+            color: var(--primary);
+        }
+
+        .dashboard-content {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title-sm {
+            font-size: 1.4rem;
+            color: var(--dark);
+        }
+
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--primary);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        .applications-list, .notifications-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .application-item, .notification-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: var(--radius);
+            border-left: 4px solid var(--primary);
+        }
+
+        .application-info h4, .notification-info h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .application-info p, .notification-info p {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        .application-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .status-reviewed {
+            background: #dbeafe;
+            color: var(--primary);
+        }
+
+        .status-accepted {
+            background: #d1fae5;
+            color: var(--success);
+        }
+
+        .status-rejected {
+            background: #fee2e2;
+            color: var(--danger);
+        }
+
+        .notification-time {
+            color: var(--secondary);
+            font-size: 0.8rem;
+        }
+
+        .resume-upload-area {
+            border: 2px dashed #d1d5db;
+            border-radius: var(--radius);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .resume-upload-area:hover {
+            border-color: var(--primary);
+            background: #f0f7ff;
+        }
+
+        .resume-upload-area i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .resume-upload-area p {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .resume-preview {
+            background: #f8fafc;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .resume-preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .resume-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Notification Bell */
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notification-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-sidebar {
+                order: 2;
+            }
+
+            .dashboard-content {
+                order: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <span class="logo-icon">💼</span>
+                    JobConnect
+                </a>
+                <div class="nav-links">
+                    <a href="#" class="nav-link">Início</a>
+                    <a href="#" class="nav-link">Vagas</a>
+                    <a href="#" class="nav-link">Empresas</a>
+                    <a href="#" class="nav-link">Blog</a>
+                    <a href="#" class="nav-link">Contato</a>
+                </div>
+                <div class="auth-buttons">
+                    <div class="notification-bell" id="notificationBell">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </div>
+                    <button class="btn btn-outline" id="loginBtn">Entrar</button>
+                    <button class="btn btn-primary" id="registerBtn">Cadastrar</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Encontre o emprego dos seus sonhos</h1>
+            <p>Conectamos talentos excepcionais a oportunidades incríveis. Explore milhares de vagas das melhores empresas.</p>
+            
+            <div class="search-box">
+                <form class="search-form">
+                    <div class="form-group">
+                        <label for="keywords">Cargo, palavra-chave ou empresa</label>
+                        <input type="text" id="keywords" class="form-control" placeholder="Ex: Desenvolvedor Front-end">
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Localização</label>
+                        <input type="text" id="location" class="form-control" placeholder="Ex: São Paulo, Remoto">
+                    </div>
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <button type="submit" class="btn btn-primary">Buscar Vagas</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Explore por Categoria</h2>
+                <p>Encontre vagas nas áreas que mais combinam com seu perfil e interesses</p>
+            </div>
+            
+            <div class="categories">
+                <div class="category-card">
+                    <div class="category-icon">💻</div>
+                    <h3>Tecnologia</h3>
+                    <p>245 vagas disponíveis</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">📊</div>
+                    <h3>Marketing</h3>
+                    <p>132 vagas disponíveis</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">💰</div>
+                    <h3>Finanças</h3>
+                    <p>98 vagas disponíveis</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🎨</div>
+                    <h3>Design</h3>
+                    <p>87 vagas disponíveis</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">👨‍💼</div>
+                    <h3>Vendas</h3>
+                    <p>156 vagas disponíveis</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🏥</div>
+                    <h3>Saúde</h3>
+                    <p>112 vagas disponíveis</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Jobs -->
+    <section class="section" style="background-color: white;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Vagas em Destaque</h2>
+                <p>Confira as oportunidades mais recentes das empresas parceiras</p>
+            </div>
+            
+            <div class="jobs">
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <h3 class="job-title">Desenvolvedor Front-end</h3>
+                            <p class="job-company">TechSolutions Inc.</p>
+                        </div>
+                        <span class="job-type">Remoto</span>
+                    </div>
+                    <div class="job-details">
+                        <div class="job-detail">
+                            <span>📍</span>
+                            <span>São Paulo, Brasil</span>
+                        </div>
+                        <div class="job-detail">
+                            <span>⏱️</span>
+                            <span>Tempo Integral</span>
+                        </div>
+                    </div>
+                    <p>Estamos buscando um desenvolvedor front-end com experiência em React e Vue.js para se juntar à nossa equipe.</p>
+                    <div class="job-footer">
+                        <div class="job-salary">R$ 8.000 - 12.000</div>
+                        <button class="btn btn-primary">Candidatar-se</button>
+                    </div>
+                </div>
+                
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <h3 class="job-title">Analista de Marketing Digital</h3>
+                            <p class="job-company">Growth Agency</p>
+                        </div>
+                        <span class="job-type">Híbrido</span>
+                    </div>
+                    <div class="job-details">
+                        <div class="job-detail">
+                            <span>📍</span>
+                            <span>Rio de Janeiro, Brasil</span>
+                        </div>
+                        <div class="job-detail">
+                            <span>⏱️</span>
+                            <span>Tempo Integral</span>
+                        </div>
+                    </div>
+                    <p>Procuramos um analista de marketing digital com experiência em SEO, Google Ads e análise de dados.</p>
+                    <div class="job-footer">
+                        <div class="job-salary">R$ 5.500 - 7.500</div>
+                        <button class="btn btn-primary">Candidatar-se</button>
+                    </div>
+                </div>
+                
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <h3 class="job-title">Product Manager</h3>
+                            <p class="job-company">Inovation Labs</p>
+                        </div>
+                        <span class="job-type">Presencial</span>
+                    </div>
+                    <div class="job-details">
+                        <div class="job-detail">
+                            <span>📍</span>
+                            <span>Curitiba, Brasil</span>
+                        </div>
+                        <div class="job-detail">
+                            <span>⏱️</span>
+                            <span>Tempo Integral</span>
+                        </div>
+                    </div>
+                    <p>Buscamos um Product Manager para liderar o desenvolvimento de nossos produtos digitais.</p>
+                    <div class="job-footer">
+                        <div class="job-salary">R$ 12.000 - 18.000</div>
+                        <button class="btn btn-primary">Candidatar-se</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <button class="btn btn-outline">Ver Todas as Vagas</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard (Hidden by default) -->
+    <section class="dashboard container" id="userDashboard">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">Meu Painel</h1>
+            <div class="user-info">
+                <div class="user-avatar">JS</div>
+                <div>
+                    <h3>João Silva</h3>
+                    <p>Candidato</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-sidebar">
+                <ul class="sidebar-menu">
+                    <li><a href="#" class="sidebar-link active" data-section="overview"><i class="fas fa-chart-pie"></i> Visão Geral</a></li>
+                    <li><a href="#" class="sidebar-link" data-section="applications"><i class="fas fa-file-alt"></i> Minhas Candidaturas</a></li>
+                    <li><a href="#" class="sidebar-link" data-section="resume"><i class="fas fa-file-upload"></i> Meu Currículo</a></li>
+                    <li><a href="#" class="sidebar-link" data-section="notifications"><i class="fas fa-bell"></i> Notificações</a></li>
+                    <li><a href="#" class="sidebar-link" data-section="profile"><i class="fas fa-user"></i> Meu Perfil</a></li>
+                    <li><a href="#" class="sidebar-link" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                </ul>
+            </div>
+
+            <div class="dashboard-content">
+                <!-- Overview Section -->
+                <div class="content-section active" id="overview">
+                    <div class="section-header">
+                        <h2 class="section-title-sm">Visão Geral</h2>
+                    </div>
+
+                    <div class="stats-cards">
+                        <div class="stat-card">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Candidaturas Enviadas</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Em Análise</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Entrevistas Agendadas</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">85%</div>
+                            <div class="stat-label">Perfil Completo</div>
+                        </div>
+                    </div>
+
+                    <h3>Candidaturas Recentes</h3>
+                    <div class="applications-list">
+                        <div class="application-item">
+                            <div class="application-info">
+                                <h4>Desenvolvedor Front-end</h4>
+                                <p>TechSolutions Inc. • Enviada em 15/10/2023</p>
+                            </div>
+                            <span class="application-status status-reviewed">Em análise</span>
+                        </div>
+                        <div class="application-item">
+                            <div class="application-info">
+                                <h4>Analista de Marketing Digital</h4>
+                                <p>Growth Agency • Enviada em 12/10/2023</p>
+                            </div>
+                            <span class="application-status status-pending">Pendente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Applications Section -->
+                <div class="content-section" id="applications">
+                    <div class="section-header">
+                        <h2 class="section-title-sm">Minhas Candidaturas</h2>
+                    </div>
+
+                    <div class="applications-list">
+                        <div class="application-item">
+                            <div class="application-info">
+                                <h4>Desenvolvedor Front-end</h4>
+                                <p>TechSolutions Inc. • São Paulo, Brasil • Remoto</p>
+                                <p>Enviada em 15/10/2023</p>
+                            </div>
+                            <span class="application-status status-reviewed">Em análise</span>
+                        </div>
+                        <div class="application-item">
+                            <div class="application-info">
+                                <h4>Analista de Marketing Digital</h4>
+                                <p>Growth Agency • Rio de Janeiro, Brasil • Híbrido</p>
+                                <p>Enviada em 12/10/2023</p>
+                            </div>
+                            <span class="application-status status-pending">Pendente</span>
+                        </div>
+                        <div class="application-item">
+                            <div class="application-info">
+                                <h4>Product Manager</h4>
+                                <p>Inovation Labs • Curitiba, Brasil • Presencial</p>
+                                <p>Enviada em 10/10/2023</p>
+                            </div>
+                            <span class="application-status status-accepted">Aceita</span>
+                        </div>
+                        <div class="application-item">
+                            <div class="application-info">
+                                <h4>UX Designer</h4>
+                                <p>Creative Studio • Porto Alegre, Brasil • Remoto</p>
+                                <p>Enviada em 05/10/2023</p>
+                            </div>
+                            <span class="application-status status-rejected">Recusada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resume Section -->
+                <div class="content-section" id="resume">
+                    <div class="section-header">
+                        <h2 class="section-title-sm">Meu Currículo</h2>
+                    </div>
+
+                    <div class="resume-upload-area" id="resumeUploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Envie seu currículo</h3>
+                        <p>Arraste e solte seu arquivo aqui ou clique para selecionar</p>
+                        <p class="small">Formatos suportados: PDF, DOC, DOCX (Tamanho máximo: 5MB)</p>
+                        <input type="file" id="resumeFile" accept=".pdf,.doc,.docx" style="display: none;">
+                    </div>
+
+                    <div class="resume-preview" id="resumePreview" style="display: none;">
+                        <div class="resume-preview-header">
+                            <h3>Currículo atual</h3>
+                            <div class="resume-actions">
+                                <button class="btn btn-outline"><i class="fas fa-eye"></i> Visualizar</button>
+                                <button class="btn btn-outline"><i class="fas fa-download"></i> Baixar</button>
+                                <button class="btn btn-outline" id="replaceResume"><i class="fas fa-sync"></i> Substituir</button>
+                            </div>
+                        </div>
+                        <p><strong>Arquivo:</strong> <span id="resumeFileName">curriculo_joao_silva.pdf</span></p>
+                        <p><strong>Última atualização:</strong> 10/10/2023</p>
+                    </div>
+                </div>
+
+                <!-- Notifications Section -->
+                <div class="content-section" id="notifications">
+                    <div class="section-header">
+                        <h2 class="section-title-sm">Notificações</h2>
+                        <button class="btn btn-outline" id="markAllRead">Marcar todas como lidas</button>
+                    </div>
+
+                    <div class="notifications-list">
+                        <div class="notification-item unread">
+                            <div class="notification-info">
+                                <h4>Sua candidatura foi visualizada</h4>
+                                <p>TechSolutions Inc. visualizou sua candidatura para Desenvolvedor Front-end.</p>
+                                <span class="notification-time">Há 2 horas</span>
+                            </div>
+                        </div>
+                        <div class="notification-item unread">
+                            <div class="notification-info">
+                                <h4>Nova vaga recomendada</h4>
+                                <p>Confira a vaga de Desenvolvedor React na Inovation Labs.</p>
+                                <span class="notification-time">Há 1 dia</span>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-info">
+                                <h4>Atualização de perfil</h4>
+                                <p>Complete seu perfil para aumentar suas chances em 40%.</p>
+                                <span class="notification-time">Há 3 dias</span>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-info">
+                                <h4>Candidatura bem-sucedida</h4>
+                                <p>Sua candidatura para Product Manager foi enviada com sucesso.</p>
+                                <span class="notification-time">Há 5 dias</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Section -->
+                <div class="content-section" id="profile">
+                    <div class="section-header">
+                        <h2 class="section-title-sm">Meu Perfil</h2>
+                        <button class="btn btn-primary">Editar Perfil</button>
+                    </div>
+
+                    <div class="profile-info">
+                        <div class="form-group">
+                            <label for="profileName">Nome Completo</label>
+                            <input type="text" id="profileName" class="form-control" value="João Silva">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileEmail">E-mail</label>
+                            <input type="email" id="profileEmail" class="form-control" value="joao.silva@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="profilePhone">Telefone</label>
+                            <input type="tel" id="profilePhone" class="form-control" value="(11) 99999-9999">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileLocation">Localização</label>
+                            <input type="text" id="profileLocation" class="form-control" value="São Paulo, Brasil">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileTitle">Título Profissional</label>
+                            <input type="text" id="profileTitle" class="form-control" value="Desenvolvedor Front-end">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileBio">Biografia</label>
+                            <textarea id="profileBio" class="form-control" rows="4">Desenvolvedor Front-end com 5 anos de experiência em React, Vue.js e Angular. Apaixonado por criar interfaces de usuário intuitivas e responsivas.</textarea>
+                        </div>
+                        <button class="btn btn-success">Salvar Alterações</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Entrar na Plataforma</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">E-mail</label>
+                        <input type="email" id="loginEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Senha</label>
+                        <input type="password" id="loginPassword" class="form-control" required>
+                    </div>
+                    <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <input type="checkbox" id="rememberMe">
+                            <label for="rememberMe">Lembrar-me</label>
+                        </div>
+                        <a href="#" style="color: var(--primary); text-decoration: none;">Esqueci minha senha</a>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline close-modal">Cancelar</button>
+                <button class="btn btn-primary" id="submitLogin">Entrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Criar Conta</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="registerName">Nome Completo</label>
+                        <input type="text" id="registerName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">E-mail</label>
+                        <input type="email" id="registerEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Senha</label>
+                        <input type="password" id="registerPassword" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerConfirmPassword">Confirmar Senha</label>
+                        <input type="password" id="registerConfirmPassword" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerType">Tipo de Conta</label>
+                        <select id="registerType" class="form-control" required>
+                            <option value="">Selecione...</option>
+                            <option value="candidate">Candidato</option>
+                            <option value="employer">Empresa</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <label for="agreeTerms">Concordo com os <a href="#" style="color: var(--primary);">Termos de Uso</a> e <a href="#" style="color: var(--primary);">Política de Privacidade</a></label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline close-modal">Cancelar</button>
+                <button class="btn btn-primary" id="submitRegister">Criar Conta</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Modal -->
+    <div class="modal" id="notificationsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Notificações</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="notifications-list">
+                    <div class="notification-item unread">
+                        <div class="notification-info">
+                            <h4>Sua candidatura foi visualizada</h4>
+                            <p>TechSolutions Inc. visualizou sua candidatura para Desenvolvedor Front-end.</p>
+                            <span class="notification-time">Há 2 horas</span>
+                        </div>
+                    </div>
+                    <div class="notification-item unread">
+                        <div class="notification-info">
+                            <h4>Nova vaga recomendada</h4>
+                            <p>Confira a vaga de Desenvolvedor React na Inovation Labs.</p>
+                            <span class="notification-time">Há 1 dia</span>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <h4>Atualização de perfil</h4>
+                            <p>Complete seu perfil para aumentar suas chances em 40%.</p>
+                            <span class="notification-time">Há 3 dias</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="markAllReadModal">Marcar todas como lidas</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>JobConnect</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Carreiras</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Imprensa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Para Candidatos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Buscar Vagas</a></li>
+                        <li><a href="#">Criar Perfil</a></li>
+                        <li><a href="#">Alertas de Vagas</a></li>
+                        <li><a href="#">Dicas de Carreira</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Para Empresas</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Publicar Vagas</a></li>
+                        <li><a href="#">Buscar Talentos</a></li>
+                        <li><a href="#">Planos e Preços</a></li>
+                        <li><a href="#">Recursos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Suporte</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 JobConnect. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Elementos da interface
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const notificationsModal = document.getElementById('notificationsModal');
+        const notificationBell = document.getElementById('notificationBell');
+        const closeModalButtons = document.querySelectorAll('.close-modal');
+        const submitLogin = document.getElementById('submitLogin');
+        const submitRegister = document.getElementById('submitRegister');
+        const userDashboard = document.getElementById('userDashboard');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        const contentSections = document.querySelectorAll('.content-section');
+        const resumeUploadArea = document.getElementById('resumeUploadArea');
+        const resumeFile = document.getElementById('resumeFile');
+        const resumePreview = document.getElementById('resumePreview');
+        const replaceResume = document.getElementById('replaceResume');
+        const markAllRead = document.getElementById('markAllRead');
+        const markAllReadModal = document.getElementById('markAllReadModal');
+
+        // Estado da aplicação
+        let isLoggedIn = false;
+        let userData = {
+            name: 'João Silva',
+            email: 'joao.silva@email.com',
+            type: 'candidate'
+        };
+
+        // Abrir modais
+        loginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+        });
+
+        registerBtn.addEventListener('click', () => {
+            registerModal.style.display = 'flex';
+        });
+
+        notificationBell.addEventListener('click', () => {
+            if (isLoggedIn) {
+                notificationsModal.style.display = 'flex';
+            } else {
+                loginModal.style.display = 'flex';
+            }
+        });
+
+        // Fechar modais
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                loginModal.style.display = 'none';
+                registerModal.style.display = 'none';
+                notificationsModal.style.display = 'none';
+            });
+        });
+
+        // Fechar modal ao clicar fora
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (e.target === registerModal) {
+                registerModal.style.display = 'none';
+            }
+            if (e.target === notificationsModal) {
+                notificationsModal.style.display = 'none';
+            }
+        });
+
+        // Login
+        submitLogin.addEventListener('click', () => {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Simulação de login bem-sucedido
+            if (email && password) {
+                isLoggedIn = true;
+                userDashboard.style.display = 'block';
+                document.querySelector('.hero').style.display = 'none';
+                document.querySelectorAll('.section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                document.querySelector('footer').style.display = 'none';
+                loginModal.style.display = 'none';
+                
+                // Atualizar interface para usuário logado
+                document.querySelector('.auth-buttons').innerHTML = `
+                    <div class="notification-bell" id="notificationBell">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </div>
+                    <div class="user-avatar" style="width: 40px; height: 40px; font-size: 1rem;">JS</div>
+                `;
+                
+                // Reatribuir evento após atualizar o DOM
+                document.getElementById('notificationBell').addEventListener('click', () => {
+                    notificationsModal.style.display = 'flex';
+                });
+            } else {
+                alert('Por favor, preencha todos os campos.');
+            }
+        });
+
+        // Registro
+        submitRegister.addEventListener('click', () => {
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            const accountType = document.getElementById('registerType').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+            
+            if (name && email && password && confirmPassword && accountType && agreeTerms) {
+                if (password !== confirmPassword) {
+                    alert('As senhas não coincidem.');
+                    return;
+                }
+                
+                // Simulação de registro bem-sucedido
+                isLoggedIn = true;
+                userData.name = name;
+                userData.email = email;
+                userData.type = accountType;
+                
+                userDashboard.style.display = 'block';
+                document.querySelector('.hero').style.display = 'none';
+                document.querySelectorAll('.section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                document.querySelector('footer').style.display = 'none';
+                registerModal.style.display = 'none';
+                
+                // Atualizar interface para usuário logado
+                document.querySelector('.auth-buttons').innerHTML = `
+                    <div class="notification-bell" id="notificationBell">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </div>
+                    <div class="user-avatar" style="width: 40px; height: 40px; font-size: 1rem;">${name.split(' ').map(n => n[0]).join('')}</div>
+                `;
+                
+                // Atualizar informações do usuário no dashboard
+                document.querySelector('.user-avatar').textContent = name.split(' ').map(n => n[0]).join('');
+                document.querySelector('.user-info h3').textContent = name;
+                
+                // Reatribuir evento após atualizar o DOM
+                document.getElementById('notificationBell').addEventListener('click', () => {
+                    notificationsModal.style.display = 'flex';
+                });
+            } else {
+                alert('Por favor, preencha todos os campos e aceite os termos.');
+            }
+        });
+
+        // Logout
+        logoutBtn.addEventListener('click', () => {
+            isLoggedIn = false;
+            userDashboard.style.display = 'none';
+            document.querySelector('.hero').style.display = 'block';
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.display = 'block';
+            });
+            document.querySelector('footer').style.display = 'block';
+            
+            // Restaurar botões de autenticação
+            document.querySelector('.auth-buttons').innerHTML = `
+                <div class="notification-bell" id="notificationBell">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-count">3</span>
+                </div>
+                <button class="btn btn-outline" id="loginBtn">Entrar</button>
+                <button class="btn btn-primary" id="registerBtn">Cadastrar</button>
+            `;
+            
+            // Reatribuir eventos após atualizar o DOM
+            document.getElementById('loginBtn').addEventListener('click', () => {
+                loginModal.style.display = 'flex';
+            });
+            document.getElementById('registerBtn').addEventListener('click', () => {
+                registerModal.style.display = 'flex';
+            });
+            document.getElementById('notificationBell').addEventListener('click', () => {
+                if (isLoggedIn) {
+                    notificationsModal.style.display = 'flex';
+                } else {
+                    loginModal.style.display = 'flex';
+                }
+            });
+        });
+
+        // Navegação do dashboard
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remover classe active de todos os links
+                sidebarLinks.forEach(l => l.classList.remove('active'));
+                
+                // Adicionar classe active ao link clicado
+                link.classList.add('active');
+                
+                // Esconder todas as seções de conteúdo
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Mostrar a seção correspondente
+                const sectionId = link.getAttribute('data-section');
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+
+        // Upload de currículo
+        resumeUploadArea.addEventListener('click', () => {
+            resumeFile.click();
+        });
+
+        resumeFile.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                const fileName = file.name;
+                
+                // Validar tipo e tamanho do arquivo
+                const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+                const maxSize = 5 * 1024 * 1024; // 5MB
+                
+                if (!validTypes.includes(file.type)) {
+                    alert('Por favor, selecione um arquivo PDF ou DOC/DOCX.');
+                    return;
+                }
+                
+                if (file.size > maxSize) {
+                    alert('O arquivo é muito grande. O tamanho máximo permitido é 5MB.');
+                    return;
+                }
+                
+                // Simular upload bem-sucedido
+                document.getElementById('resumeFileName').textContent = fileName;
+                resumeUploadArea.style.display = 'none';
+                resumePreview.style.display = 'block';
+                
+                alert('Currículo enviado com sucesso!');
+            }
+        });
+
+        replaceResume.addEventListener('click', () => {
+            resumeUploadArea.style.display = 'block';
+            resumePreview.style.display = 'none';
+            resumeFile.value = '';
+        });
+
+        // Marcar notificações como lidas
+        markAllRead.addEventListener('click', () => {
+            document.querySelectorAll('.notification-item.unread').forEach(item => {
+                item.classList.remove('unread');
+            });
+            document.querySelector('.notification-count').textContent = '0';
+        });
+
+        markAllReadModal.addEventListener('click', () => {
+            document.querySelectorAll('.notification-item.unread').forEach(item => {
+                item.classList.remove('unread');
+            });
+            document.querySelector('.notification-count').textContent = '0';
+            notificationsModal.style.display = 'none';
+        });
+
+        // Simulação de funcionalidade de busca
+        document.querySelector('.search-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const keywords = document.getElementById('keywords').value;
+            const location = document.getElementById('location').value;
+            
+            if (keywords || location) {
+                alert(`Buscando vagas com: ${keywords || 'qualquer termo'} em ${location || 'qualquer localização'}`);
+                // Em uma implementação real, aqui seria feita uma requisição ao backend
+            } else {
+                alert('Por favor, preencha pelo menos um campo de busca');
+            }
+        });
+
+        // Simulação de candidatura
+        document.querySelectorAll('.job-card .btn-primary').forEach(button => {
+            button.addEventListener('click', function() {
+                if (!isLoggedIn) {
+                    loginModal.style.display = 'flex';
+                    return;
+                }
+                
+                const jobTitle = this.closest('.job-card').querySelector('.job-title').textContent;
+                alert(`Candidatura enviada para: ${jobTitle}`);
+            });
+        });
+    </script>
+</body>
+</html>
