@@ -1,5 +1,13 @@
 # JobConnect - Plataforma de Conexão Profissional
 
+## 🖥️ Preview do Sistema
+
+<div align="center">
+  <img src="imagens/jobconnect.png" alt="Tela Principal - JobConnect" width="800">
+  <br>
+  <sup>Interface principal da plataforma JobConnect</sup>
+</div>
+
 ## 📋 Sobre o Projeto
 
 O **JobConnect** é uma plataforma web moderna e responsiva desenvolvida para conectar talentos a oportunidades de emprego. A plataforma facilita o processo de busca por vagas, candidatura e gestão de carreira para profissionais, enquanto oferece às empresas uma forma eficiente de encontrar os candidatos ideais.
@@ -10,14 +18,6 @@ A plataforma tem como objetivo principal:
 - **Para candidatos**: Oferecer uma experiência intuitiva para encontrar vagas, gerenciar candidaturas e desenvolver a carreira
 - **Para empresas**: Proporcionar uma ferramenta eficiente para recrutamento e seleção de talentos
 - **Digitalizar processos**: Modernizar o mercado de trabalho através de tecnologia acessível e user-friendly
-
-## 🖥️ Preview do Sistema
-
-<div align="center">
-  <img src="https://via.placeholder.com/800x450/2563eb/ffffff?text=JobConnect+Platform" alt="Tela Principal - JobConnect" width="800">
-  <br>
-  <sup>Interface principal da plataforma JobConnect</sup>
-</div>
 
 ## 💼 Funcionalidades Principais
 
