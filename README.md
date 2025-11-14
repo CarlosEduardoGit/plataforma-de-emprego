@@ -6,6 +6,8 @@
   <img src="imagens/jobconnect.png" alt="Tela Principal - JobConnect" width="800">
   <br>
   <sup>Interface principal da plataforma JobConnect</sup>
+  <br>
+  https://carloseduardogit.github.io/plataforma-de-emprego/
 </div>
 
 ## 📋 Sobre o Projeto
